@@ -6,6 +6,7 @@ package com.udacity.gradle.builditbigger;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.extensions.android.json.AndroidJsonFactory;
@@ -19,6 +20,7 @@ import java.io.IOException;
  * Handles the request to our service via an asyntask.
  */
 public class EndpointsAsyncTask extends AsyncTask<Void, Void, String> {
+    private static final String TAG = "EndpointsAsyncTask";
     private static MyApi myApiService = null;
     private Listener mListener;
 
@@ -52,7 +54,8 @@ public class EndpointsAsyncTask extends AsyncTask<Void, Void, String> {
         try {
             return myApiService.getJoke().execute().getData();
         } catch (IOException e) {
-            return e.getMessage();
+            Log.e(TAG, e.getMessage());
+            return null;
         }
     }
 
